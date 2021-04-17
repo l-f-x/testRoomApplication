@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.aboba.room.R
-import com.aboba.room.models.DataModel
+import com.aboba.room.db.Data
 
-class DataAdapter(private val dataSet:Array<DataModel>) :
+class DataAdapter(private val dataSet:List<Data>) :
     RecyclerView.Adapter<DataAdapter.ViewHolder>() {
         class ViewHolder(view: View): RecyclerView.ViewHolder(view){
             //Initialize design links
@@ -33,8 +33,10 @@ class DataAdapter(private val dataSet:Array<DataModel>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvName.text=dataSet[position].name
-        holder.tvDesc.text=dataSet[position].description
-        holder.imgContainer.load(dataSet[position].image_url)
+        holder.tvDesc.text=dataSet[position].desc
+        holder.imgContainer.load(dataSet[position].url){
+            error(R.drawable.ic_baseline_error_outline_24)
+        }
     }
 
     override fun getItemCount(): Int {
